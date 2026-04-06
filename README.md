@@ -14,6 +14,17 @@ This repository contains all course materials, including presentations, code exa
 
 - **aiasd-311-monday.pptx** - Main course presentation covering AI-assisted development fundamentals
 
+### Code Examples
+
+- **Simple Calculator** - Available in both console and web versions:
+  - Formula parsing with regex
+  - Basic arithmetic operations (+, -, \*, /, %)
+  - Interactive UI (CLI and web-based)
+  - Test-driven development with Jest
+  - Modern web interface with history tracking
+  - Error handling best practices
+  - See [CALCULATOR.md](CALCULATOR.md) for full documentation
+
 ## 🎯 Learning Objectives
 
 Participants will learn to:

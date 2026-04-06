@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Calculator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="calculator">
+        <h1>Simple Calculator</h1>
+
+        <div class="display-section">
+          <input
+            type="text"
+            id="formula-input"
+            class="formula-input"
+            placeholder="Enter formula (e.g., 10 + 5)"
+            autofocus
+          />
+          <div id="result" class="result"></div>
+        </div>
+
+        <div class="operations">
+          <h3>Available Operations</h3>
+          <div class="operation-list">
+            <span class="operation-item">+ Addition</span>
+            <span class="operation-item">- Subtraction</span>
+            <span class="operation-item">* Multiplication</span>
+            <span class="operation-item">/ Division</span>
+            <span class="operation-item">% Percentage</span>
+          </div>
+        </div>
+
+        <div class="button-grid">
+          <button class="btn num-btn" data-value="7">7</button>
+          <button class="btn num-btn" data-value="8">8</button>
+          <button class="btn num-btn" data-value="9">9</button>
+          <button class="btn op-btn" data-value="/">/</button>
+
+          <button class="btn num-btn" data-value="4">4</button>
+          <button class="btn num-btn" data-value="5">5</button>
+          <button class="btn num-btn" data-value="6">6</button>
+          <button class="btn op-btn" data-value="*">*</button>
+
+          <button class="btn num-btn" data-value="1">1</button>
+          <button class="btn num-btn" data-value="2">2</button>
+          <button class="btn num-btn" data-value="3">3</button>
+          <button class="btn op-btn" data-value="-">-</button>
+
+          <button class="btn num-btn" data-value="0">0</button>
+          <button class="btn num-btn" data-value=".">.</button>
+          <button class="btn op-btn" data-value="%">%</button>
+          <button class="btn op-btn" data-value="+">+</button>
+
+          <button class="btn backspace-btn" id="backspace">⌫ Backspace</button>
+          <button class="btn clear-btn" id="clear">Clear All</button>
+          <button class="btn equals-btn" id="equals">=</button>
+        </div>
+
+        <div class="history">
+          <h3>History</h3>
+          <div id="history-list" class="history-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="web-app.js"></script>
+  </body>
+</html>

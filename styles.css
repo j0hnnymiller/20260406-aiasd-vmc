@@ -1,0 +1,249 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 600px;
+}
+
+.calculator {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  padding: 30px;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+.display-section {
+  margin-bottom: 20px;
+}
+
+.formula-input {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.5rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  font-family: "Courier New", monospace;
+  transition: border-color 0.3s;
+}
+
+.formula-input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.result {
+  min-height: 50px;
+  padding: 15px;
+  background: #f5f5f5;
+  border-radius: 10px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #667eea;
+  text-align: right;
+  font-family: "Courier New", monospace;
+}
+
+.result.error {
+  color: #e74c3c;
+}
+
+.operations {
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 10px;
+}
+
+.operations h3 {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.operation-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.operation-item {
+  background: white;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  color: #555;
+  border: 1px solid #e0e0e0;
+}
+
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.btn {
+  padding: 20px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 600;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.num-btn {
+  background: #e8eaf6;
+  color: #3f51b5;
+}
+
+.num-btn:hover {
+  background: #c5cae9;
+}
+
+.op-btn {
+  background: #667eea;
+  color: white;
+}
+
+.op-btn:hover {
+  background: #5568d3;
+}
+
+.backspace-btn {
+  grid-column: span 1;
+  background: #ffa500;
+  color: white;
+}
+
+.backspace-btn:hover {
+  background: #ff8c00;
+}
+
+.clear-btn {
+  grid-column: span 2;
+  background: #ff6b6b;
+  color: white;
+}
+
+.clear-btn:hover {
+  background: #ee5a52;
+}
+
+.equals-btn {
+  grid-column: span 2;
+  background: #51cf66;
+  color: white;
+}
+
+.equals-btn:hover {
+  background: #40c057;
+}
+
+.history {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.history h3 {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.history-item {
+  padding: 8px 12px;
+  background: white;
+  border-radius: 5px;
+  font-family: "Courier New", monospace;
+  font-size: 0.9rem;
+  color: #555;
+  border-left: 3px solid #667eea;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.history-item:hover {
+  background: #e8eaf6;
+}
+
+.history-item .formula {
+  color: #333;
+  font-weight: 600;
+}
+
+.history-item .result {
+  color: #667eea;
+  font-weight: bold;
+  background: transparent;
+  padding: 0;
+  margin-left: 10px;
+  font-size: 0.9rem;
+  text-align: left;
+  min-height: auto;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .calculator {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .formula-input {
+    font-size: 1.2rem;
+  }
+
+  .result {
+    font-size: 1.5rem;
+  }
+
+  .btn {
+    padding: 15px;
+    font-size: 1rem;
+  }
+}
