@@ -35,20 +35,69 @@ Participants will learn to:
 - Understand the limitations and proper use cases for AI assistance
 - Write effective prompts for code generation and analysis
 
+## 🤖 AI-Assisted Artifacts
+
+- [Evergreen Software Development Instructions](.github/instructions/evergreen-software-development.instructions.md) - Repository-wide maintainability and long-term engineering guidance. Provenance: [conversation log](ai-logs/2026/04/06/create-evergreen-software-development-instructions-20260406/conversation.md)
+
 ## 🛠️ Prerequisites
 
 - Basic programming knowledge
 - Familiarity with software development concepts
 - Access to AI development tools (GitHub Copilot, etc.)
+- Node.js 14.0.0 or higher (for running code examples)
 
 ## 📁 Repository Structure
 
 ```
 .
-├── LICENSE              # CC0 1.0 Universal License
-├── README.md           # This file
-└── slides/             # Course presentation materials
+├── LICENSE                      # CC0 1.0 Universal License
+├── README.md                    # This file
+├── calculator.js                # Console calculator application
+├── calculator.test.js           # Jest unit tests
+├── CALCULATOR.md                # Calculator documentation
+├── index.html                   # Web calculator UI
+├── styles.css                   # Web calculator styling
+├── web-app.js                   # Web calculator logic
+├── jest.config.js               # Jest test configuration
+├── package.json                 # Node.js project configuration
+├── coverage/                    # Test coverage reports
+└── slides/                      # Course presentation materials
     └── aiasd-311-monday.pptx
+```
+
+## 🚀 Quick Start
+
+### Running the Web Calculator
+
+**Option 1: Simple HTTP Server**
+
+```bash
+npm run serve
+```
+
+Then open http://localhost:3000 in your browser
+
+**Option 2: Direct File Open**
+Simply open `index.html` in your web browser
+
+### Running the Console Calculator
+
+```bash
+# Run the interactive CLI calculator
+node calculator.js
+
+# Or use npm
+npm start
+```
+
+### Running Tests
+
+```bash
+# Install dependencies (Jest)
+npm install
+
+# Run tests with coverage
+npm test
 ```
 
 ## 📝 License
