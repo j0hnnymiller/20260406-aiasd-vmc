@@ -1,0 +1,299 @@
+{
+  "responderUsername": "GitHub Copilot",
+  "initialLocation": "panel",
+  "requests": [
+    {
+      "requestId": "request_0f76b7e9-7012-41f4-8f16-9e2b3bbb72d6",
+      "message": {
+        "parts": [
+          {
+            "range": {
+              "start": 0,
+              "endExclusive": 7
+            },
+            "editorRange": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 1,
+              "endColumn": 8
+            },
+            "agent": {
+              "extensionId": {
+                "value": "GitHub.copilot-chat",
+                "_lower": "github.copilot-chat"
+              },
+              "extensionVersion": "0.42.3",
+              "publisherDisplayName": "GitHub",
+              "extensionPublisherId": "GitHub",
+              "extensionDisplayName": "GitHub Copilot Chat",
+              "id": "github.copilot.vscode",
+              "description": "Ask questions about VS Code",
+              "when": "!github.copilot.interactiveSession.disabled",
+              "metadata": {
+                "sampleRequest": "What is the command to open the integrated terminal?",
+                "themeIcon": {
+                  "id": "vscode"
+                },
+                "hasFollowups": false,
+                "supportIssueReporting": false
+              },
+              "name": "vscode",
+              "fullName": "VS Code",
+              "locations": [
+                "panel"
+              ],
+              "modes": [
+                "agent",
+                "ask",
+                "edit"
+              ],
+              "slashCommands": [
+                {
+                  "name": "search",
+                  "description": "Generate query parameters for workspace search",
+                  "sampleRequest": "Search for 'foo' in all files under my 'src' directory"
+                }
+              ],
+              "disambiguation": [
+                {
+                  "category": "vscode_configuration_questions",
+                  "description": "The user wants to learn about, use, or configure the Visual Studio Code. Use this category if the users question is specifically about commands, settings, keybindings, extensions and other features available in Visual Studio Code. Do not use this category to answer questions about generating code or creating new projects including Visual Studio Code extensions.",
+                  "examples": [
+                    "Switch to light mode.",
+                    "Keyboard shortcut to toggle terminal visibility.",
+                    "Settings to enable minimap.",
+                    "Whats new in the latest release?"
+                  ]
+                },
+                {
+                  "category": "configure_python_environment",
+                  "description": "The user wants to set up their Python environment.",
+                  "examples": [
+                    "Create a virtual environment for my project."
+                  ]
+                }
+              ]
+            },
+            "kind": "agent"
+          },
+          {
+            "range": {
+              "start": 7,
+              "endExclusive": 49
+            },
+            "editorRange": {
+              "startLineNumber": 1,
+              "startColumn": 8,
+              "endLineNumber": 1,
+              "endColumn": 50
+            },
+            "text": " how to do i save chat sessions to a file?",
+            "kind": "text"
+          }
+        ],
+        "text": "@vscode how to do i save chat sessions to a file?"
+      },
+      "variableData": {
+        "variables": [
+          {
+            "value": "Repository name: 20260406-aiasd-vmc\nOwner: j0hnnymiller\nCurrent branch: main\nDefault branch: main",
+            "name": "j0hnnymiller/20260406-aiasd-vmc",
+            "modelDescription": "Information about the current repository. You can use this information when you need to calculate diffs or compare changes with the default branch",
+            "id": "j0hnnymiller/20260406-aiasd-vmc",
+            "kind": "workspace"
+          },
+          {
+            "kind": "file",
+            "id": "vscode.implicit.file",
+            "name": "file:.gitignore",
+            "value": {
+              "$mid": 1,
+              "fsPath": "c:\\git\\AIASD\\20260406-aiasd-vumc\\.gitignore",
+              "_sep": 1,
+              "external": "file:///c%3A/git/AIASD/20260406-aiasd-vumc/.gitignore",
+              "path": "/c:/git/AIASD/20260406-aiasd-vumc/.gitignore",
+              "scheme": "file"
+            },
+            "modelDescription": "User's active file"
+          },
+          {
+            "id": "vscode.instructions.file.root__vscode-userdata:/c%3A/Users/JohnM/AppData/Roaming/Code/User/prompts/prompt-instructions.md.instructions.md",
+            "name": "prompt:prompt-instructions.md.instructions.md",
+            "value": {
+              "$mid": 1,
+              "external": "vscode-userdata:/c%3A/Users/JohnM/AppData/Roaming/Code/User/prompts/prompt-instructions.md.instructions.md",
+              "path": "/C:/Users/JohnM/AppData/Roaming/Code/User/prompts/prompt-instructions.md.instructions.md",
+              "scheme": "vscode-userdata"
+            },
+            "kind": "promptFile",
+            "modelDescription": "Prompt instructions file",
+            "isRoot": true,
+            "originLabel": "Automatically attached as pattern is **",
+            "automaticallyAdded": true
+          }
+        ]
+      },
+      "response": [
+        {
+          "kind": "mcpServersStarting",
+          "didStartServerIds": []
+        },
+        {
+          "kind": "progressMessage",
+          "content": {
+            "value": "Refining question to improve search accuracy.",
+            "uris": {}
+          }
+        },
+        {
+          "kind": "progressMessage",
+          "content": {
+            "value": "Searching command and setting index....",
+            "uris": {}
+          }
+        },
+        {
+          "value": "You can export your chat session to a file using the **Chat: Export Chat...** command, which allows you to save the current chat conversation as a JSON file.\n\n1. Run the **Chat: Export Chat...** command.\n\n",
+          "supportThemeIcons": false,
+          "supportHtml": false
+        },
+        {
+          "kind": "command",
+          "command": {
+            "$ident": "workbench.action.quickOpen /25",
+            "id": "__vsc5bcfba1a-85f6-4157-bbbb-90bed8b1bccc",
+            "title": "Show in Command Palette",
+            "arguments": [
+              "workbench.action.quickOpen /25"
+            ]
+          }
+        },
+        {
+          "value": "\n\n2. Choose a location and filename to save the exported JSON file, then use **File: Save** (`Ctrl+S`) to confirm if prompted.",
+          "supportThemeIcons": false,
+          "supportHtml": false
+        }
+      ],
+      "agent": {
+        "extensionId": {
+          "value": "GitHub.copilot-chat",
+          "_lower": "github.copilot-chat"
+        },
+        "extensionVersion": "0.42.3",
+        "publisherDisplayName": "GitHub",
+        "extensionPublisherId": "GitHub",
+        "extensionDisplayName": "GitHub Copilot Chat",
+        "id": "github.copilot.vscode",
+        "description": "Ask questions about VS Code",
+        "when": "!github.copilot.interactiveSession.disabled",
+        "metadata": {
+          "sampleRequest": "What is the command to open the integrated terminal?",
+          "themeIcon": {
+            "id": "vscode"
+          },
+          "hasFollowups": false,
+          "supportIssueReporting": false
+        },
+        "name": "vscode",
+        "fullName": "VS Code",
+        "locations": [
+          "panel"
+        ],
+        "modes": [
+          "agent",
+          "ask",
+          "edit"
+        ],
+        "slashCommands": [
+          {
+            "name": "search",
+            "description": "Generate query parameters for workspace search",
+            "sampleRequest": "Search for 'foo' in all files under my 'src' directory"
+          }
+        ],
+        "disambiguation": [
+          {
+            "category": "vscode_configuration_questions",
+            "description": "The user wants to learn about, use, or configure the Visual Studio Code. Use this category if the users question is specifically about commands, settings, keybindings, extensions and other features available in Visual Studio Code. Do not use this category to answer questions about generating code or creating new projects including Visual Studio Code extensions.",
+            "examples": [
+              "Switch to light mode.",
+              "Keyboard shortcut to toggle terminal visibility.",
+              "Settings to enable minimap.",
+              "Whats new in the latest release?"
+            ]
+          },
+          {
+            "category": "configure_python_environment",
+            "description": "The user wants to set up their Python environment.",
+            "examples": [
+              "Create a virtual environment for my project."
+            ]
+          }
+        ]
+      },
+      "timestamp": 1775505654283,
+      "modelId": "copilot/claude-opus-4.6",
+      "modeInfo": {
+        "kind": "ask",
+        "isBuiltin": true,
+        "modeId": "ask",
+        "modeName": "ask",
+        "permissionLevel": "default"
+      },
+      "responseId": "response_d0015857-d9a1-4ecc-95c4-0de1290b934d",
+      "result": {
+        "timings": {
+          "firstProgress": 8784,
+          "totalElapsed": 11600
+        },
+        "metadata": {
+          "codeBlocks": [],
+          "promptTokens": 5005,
+          "outputTokens": 132,
+          "toolCallRounds": [
+            {
+              "response": "You can export your chat session to a file using the **Chat: Export Chat...** command, which allows you to save the current chat conversation as a JSON file.\n\n1. Run the **Chat: Export Chat...** command.\n\n```json\n[\n\t{\n\t\t\"type\": \"command\",\n\t\t\"details\": {\n\t\t\t\"key\": \"workbench.action.chat.export\"\n\t\t}\n\t}\n]\n```\n\n2. Choose a location and filename to save the exported JSON file, then use **File: Save** (`Ctrl+S`) to confirm if prompted.",
+              "toolCalls": [],
+              "toolInputRetry": 0,
+              "id": "55a4fca2-d059-46ee-b828-7d071da611e6",
+              "timestamp": 1775505665885
+            }
+          ],
+          "resolvedModel": "claude-opus-4-6",
+          "modelMessageId": "77e8311c-3ab8-43c9-98c4-10682ad5d380",
+          "responseId": "a8a8a300-a770-4d73-bcf6-3a7c9d75ba81",
+          "sessionId": "f3a763eb-b239-42fd-8d89-b59165299e16",
+          "agentId": "github.copilot.vscode"
+        },
+        "details": "Claude Opus 4.6 • 3x"
+      },
+      "responseMarkdownInfo": [],
+      "followups": [],
+      "modelState": {
+        "value": 1,
+        "completedAt": 1775505665904
+      },
+      "contentReferences": [
+        {
+          "kind": "reference",
+          "reference": {
+            "$mid": 1,
+            "fsPath": "c:\\git\\AIASD\\20260406-aiasd-vumc\\.gitignore",
+            "_sep": 1,
+            "external": "file:///c%3A/git/AIASD/20260406-aiasd-vumc/.gitignore",
+            "path": "/c:/git/AIASD/20260406-aiasd-vumc/.gitignore",
+            "scheme": "file"
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "variableName": "j0hnnymiller/20260406-aiasd-vmc"
+          }
+        }
+      ],
+      "codeCitations": [],
+      "timeSpentWaiting": 0
+    }
+  ]
+}
