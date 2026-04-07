@@ -38,6 +38,8 @@ Participants will learn to:
 ## 🤖 AI-Assisted Artifacts
 
 - [Evergreen Software Development Instructions](.github/instructions/evergreen-software-development.instructions.md) - Repository-wide maintainability and long-term engineering guidance. Provenance: [conversation log](ai-logs/2026/04/06/create-evergreen-software-development-instructions-20260406/conversation.md)
+- [Create Logical Git Submission Promptfile](.github/prompts/create-logical-git-submission-promptfile.prompt.md) - Generates a promptfile for reviewing repository changes, splitting them into logical commit groups, and submitting those groups safely. Provenance: [conversation log](ai-logs/2026/04/07/create-logical-git-submission-promptfile-20260407/conversation.md)
+- [Submit Logical Git Groups Promptfile](.github/prompts/submit-logical-git-groups.prompt.md) - Reviews the current diff, proposes logical commit groups, and creates one safe commit per approved group without pushing. Provenance: [conversation log](ai-logs/2026/04/07/create-submit-logical-git-groups-promptfile-20260407/conversation.md)
 
 ## 🛠️ Prerequisites
 
