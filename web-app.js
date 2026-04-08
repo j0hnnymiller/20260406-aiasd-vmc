@@ -171,10 +171,14 @@ function renderHistory() {
   history.forEach((item) => {
     const historyItem = document.createElement("div");
     historyItem.className = "history-item";
-    historyItem.innerHTML = `
-      <span class="formula">${item.formula}</span>
-      <span class="result">= ${item.result}</span>
-    `;
+    const formulaSpan = document.createElement("span");
+    formulaSpan.className = "formula";
+    formulaSpan.textContent = item.formula;
+    const resultSpan = document.createElement("span");
+    resultSpan.className = "result";
+    resultSpan.textContent = `= ${item.result}`;
+    historyItem.appendChild(formulaSpan);
+    historyItem.appendChild(resultSpan);
     historyItem.addEventListener("click", () => {
       formulaInput.value = item.formula;
       formulaInput.focus();
