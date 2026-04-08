@@ -19,7 +19,6 @@ This repository contains all course materials, including presentations, code exa
 - **Simple Calculator** - Available in both console and web versions:
   - Formula parsing with regex
   - Basic arithmetic operations (+, -, \*, /, %)
-  - Git-versioned feature flags loaded from `feature-flags.json`
   - Interactive UI (CLI and web-based)
   - Test-driven development with Jest
   - Modern web interface with history tracking
@@ -39,6 +38,7 @@ Participants will learn to:
 ## 🤖 AI-Assisted Artifacts
 
 - [Evergreen Software Development Instructions](.github/instructions/evergreen-software-development.instructions.md) - Repository-wide maintainability and long-term engineering guidance. Provenance: [conversation log](ai-logs/2026/04/06/create-evergreen-software-development-instructions-20260406/conversation.md)
+- [Create Evergreen Software Development Instructions Promptfile](.github/prompts/create-evergreen-software-development-instructions.prompt.md) - Generates an evergreen software development instruction file in `.github/instructions/` with provenance logging and README discoverability. Provenance: [conversation log](ai-logs/2026/04/07/create-evergreen-software-development-instructions-promptfile-20260407/conversation.md)
 - [Create Logical Git Submission Promptfile](.github/prompts/create-logical-git-submission-promptfile.prompt.md) - Generates a promptfile for reviewing repository changes, splitting them into logical commit groups, and submitting those groups safely. Provenance: [conversation log](ai-logs/2026/04/07/create-logical-git-submission-promptfile-20260407/conversation.md)
 - [Submit Logical Git Groups Promptfile](.github/prompts/submit-logical-git-groups.prompt.md) - Reviews the current diff, proposes logical commit groups, and creates one safe commit per approved group without pushing. Provenance: [conversation log](ai-logs/2026/04/07/create-submit-logical-git-groups-promptfile-20260407/conversation.md)
 
@@ -57,8 +57,6 @@ Participants will learn to:
 ├── README.md                    # This file
 ├── calculator.js                # Console calculator application
 ├── calculator.test.js           # Jest unit tests
-├── feature-flags.js             # Shared feature flag loader/client
-├── feature-flags.json           # Git-versioned default feature flags
 ├── CALCULATOR.md                # Calculator documentation
 ├── index.html                   # Web calculator UI
 ├── styles.css                   # Web calculator styling
@@ -83,7 +81,7 @@ npm run serve
 Then open http://localhost:3000 in your browser
 
 **Option 2: Direct File Open**
-Simply open `index.html` in your web browser. The browser calculator falls back to embedded defaults if it cannot fetch `feature-flags.json` directly from the filesystem.
+Simply open `index.html` in your web browser
 
 ### Running the Console Calculator
 
