@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "description": "Default feature flags for repository automation and content workflows.",
+  "defaults": {
+    "promptWorkflows": true,
+    "provenanceEnforcement": true,
+    "instructionPublishing": true,
+    "slidesArtifacts": true,
+    "experimentalContent": false
+  }
+}
