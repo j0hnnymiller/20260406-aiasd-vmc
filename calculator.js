@@ -1,20 +1,63 @@
 #!/usr/bin/env node
 
 const readline = require("readline");
+const {
+  createFeatureFlagClient,
+  loadDefaultFeatureFlagConfigSync,
+} = require("./feature-flags");
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+let rl;
+
+const defaultFeatureFlags = createFeatureFlagClient(
+  loadDefaultFeatureFlagConfigSync(),
+);
+
+function getEnabledOperators(featureFlags = defaultFeatureFlags) {
+  const operators = ["+", "-", "*", "/"];
+
+  if (featureFlags.isEnabled("operators.percentage")) {
+    operators.push("%");
+  }
+
+  return operators;
+}
+
+function isOperatorEnabled(operator, featureFlags = defaultFeatureFlags) {
+  return getEnabledOperators(featureFlags).includes(operator);
+}
+
+function escapeRegexToken(value) {
+  return value.replace(/[.*+?^${}()|[\]\\/]/g, "\\$&");
+}
+
+function getReadlineInterface() {
+  if (!rl) {
+    rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+    });
+
+    rl.on("close", () => {
+      process.exit(0);
+    });
+  }
+
+  return rl;
+}
 
 /**
  * Performs basic calculator operations
  * @param {number} num1 - First number
  * @param {string} operator - Operation (+, -, *, /)
  * @param {number} num2 - Second number
+ * @param {object} featureFlags - Feature flag client
  * @returns {number|string} - Result or error message
  */
-function calculate(num1, operator, num2) {
+function calculate(num1, operator, num2, featureFlags = defaultFeatureFlags) {
+  if (!isOperatorEnabled(operator, featureFlags)) {
+    return "Error: Invalid operator";
+  }
+
   switch (operator) {
     case "+":
       return num1 + num2;
@@ -37,21 +80,16 @@ function calculate(num1, operator, num2) {
 /**
  * Parses a formula string into components
  * @param {string} formula - Formula string (e.g., "10 + 5")
+ * @param {object} featureFlags - Feature flag client
  * @returns {object|null} - Object with num1, operator, num2 or null if invalid
  */
-function parseFormula(formula) {
-  // Match patterns like "10+5", "10 + 5", "-5 * 3", "50 % 20", etc.
-  // Regex breakdown:
-  //   ^           - Start of string
-  //   \s*         - Optional whitespace
-  //   (-?\d+(?:\.\d+)?)  - First number: optional minus, digits, optional decimal portion
-  //   \s*         - Optional whitespace
-  //   ([+\-*/%])  - Operator: one of +, -, *, /, %
-  //   \s*         - Optional whitespace
-  //   (-?\d+(?:\.\d+)?)  - Second number: same pattern as first
-  //   \s*         - Optional whitespace
-  //   $           - End of string
-  const regex = /^\s*(-?\d+(?:\.\d+)?)\s*([+\-*/%])\s*(-?\d+(?:\.\d+)?)\s*$/;
+function parseFormula(formula, featureFlags = defaultFeatureFlags) {
+  const operatorPattern = getEnabledOperators(featureFlags)
+    .map(escapeRegexToken)
+    .join("|");
+  const regex = new RegExp(
+    `^\\s*(-?\\d+(?:\\.\\d+)?)\\s*(${operatorPattern})\\s*(-?\\d+(?:\\.\\d+)?)\\s*$`,
+  );
   const match = formula.match(regex);
 
   if (!match) {
@@ -81,15 +119,27 @@ function clearEntry(input) {
  * Displays the calculator menu
  */
 function displayMenu() {
+  const enabledOperators = getEnabledOperators();
+
   console.log("\n=================================");
   console.log("    SIMPLE CALCULATOR");
   console.log("=================================");
   console.log("Available operations:");
-  console.log("  + : Addition");
-  console.log("  - : Subtraction");
-  console.log("  * : Multiplication");
-  console.log("  / : Division");
-  console.log("  % : Percentage (e.g., 50 % 20 = 10)");
+  if (enabledOperators.includes("+")) {
+    console.log("  + : Addition");
+  }
+  if (enabledOperators.includes("-")) {
+    console.log("  - : Subtraction");
+  }
+  if (enabledOperators.includes("*")) {
+    console.log("  * : Multiplication");
+  }
+  if (enabledOperators.includes("/")) {
+    console.log("  / : Division");
+  }
+  if (enabledOperators.includes("%")) {
+    console.log("  % : Percentage (e.g., 50 % 20 = 10)");
+  }
   console.log("=================================");
   console.log("Enter formulas like: 10 + 5");
   console.log("Type 'q' to quit");
@@ -100,10 +150,10 @@ function displayMenu() {
  * Prompts user for input and processes the calculation
  */
 function promptCalculation() {
-  rl.question("Enter formula (or q to quit): ", (input) => {
+  getReadlineInterface().question("Enter formula (or q to quit): ", (input) => {
     if (input.toLowerCase() === "q") {
       console.log("\nThank you for using the calculator. Goodbye!");
-      rl.close();
+      getReadlineInterface().close();
       return;
     }
 
@@ -140,14 +190,12 @@ if (require.main === module) {
   promptCalculation();
 }
 
-// Handle cleanup on exit
-rl.on("close", () => {
-  process.exit(0);
-});
-
 // Export functions for testing
 module.exports = {
   calculate,
   parseFormula,
   clearEntry,
+  defaultFeatureFlags,
+  getEnabledOperators,
+  isOperatorEnabled,
 };

@@ -19,6 +19,7 @@ This repository contains all course materials, including presentations, code exa
 - **Simple Calculator** - Available in both console and web versions:
   - Formula parsing with regex
   - Basic arithmetic operations (+, -, \*, /, %)
+  - Git-versioned feature flags loaded from `feature-flags.json`
   - Interactive UI (CLI and web-based)
   - Test-driven development with Jest
   - Modern web interface with history tracking
@@ -56,6 +57,8 @@ Participants will learn to:
 ├── README.md                    # This file
 ├── calculator.js                # Console calculator application
 ├── calculator.test.js           # Jest unit tests
+├── feature-flags.js             # Shared feature flag loader/client
+├── feature-flags.json           # Git-versioned default feature flags
 ├── CALCULATOR.md                # Calculator documentation
 ├── index.html                   # Web calculator UI
 ├── styles.css                   # Web calculator styling
@@ -80,7 +83,7 @@ npm run serve
 Then open http://localhost:3000 in your browser
 
 **Option 2: Direct File Open**
-Simply open `index.html` in your web browser
+Simply open `index.html` in your web browser. The browser calculator falls back to embedded defaults if it cannot fetch `feature-flags.json` directly from the filesystem.
 
 ### Running the Console Calculator
 

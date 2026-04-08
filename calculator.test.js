@@ -1,4 +1,23 @@
-const { calculate, parseFormula, clearEntry } = require("./calculator");
+const { createFeatureFlagClient } = require("./feature-flags");
+const {
+  calculate,
+  parseFormula,
+  clearEntry,
+  defaultFeatureFlags,
+} = require("./calculator");
+
+const percentageDisabledFlags = createFeatureFlagClient(
+  {
+    version: "test",
+    flags: {
+      "operators.percentage": true,
+      "web.history": true,
+    },
+  },
+  {
+    "operators.percentage": false,
+  },
+);
 
 describe("calculate", () => {
   test("adds two positive numbers", () => {
@@ -43,6 +62,12 @@ describe("calculate", () => {
 
   test("returns error for invalid operator", () => {
     expect(calculate(10, "^", 5)).toBe("Error: Invalid operator");
+  });
+
+  test("returns error when a flagged operator is disabled", () => {
+    expect(calculate(50, "%", 20, percentageDisabledFlags)).toBe(
+      "Error: Invalid operator",
+    );
   });
 });
 
@@ -114,6 +139,10 @@ describe("parseFormula", () => {
   test("returns null for formula with invalid operator", () => {
     expect(parseFormula("10 ^ 5")).toBeNull();
   });
+
+  test("returns null when a flagged operator is disabled", () => {
+    expect(parseFormula("50 % 20", percentageDisabledFlags)).toBeNull();
+  });
 });
 
 describe("clearEntry", () => {
@@ -155,5 +184,13 @@ describe("clearEntry", () => {
 
   test("handles multi-digit removal", () => {
     expect(clearEntry("1000")).toBe("100");
+  });
+});
+
+describe("defaultFeatureFlags", () => {
+  test("loads the git-versioned default flag config", () => {
+    expect(defaultFeatureFlags.getVersion()).toBe("2026-04-08");
+    expect(defaultFeatureFlags.isEnabled("operators.percentage")).toBe(true);
+    expect(defaultFeatureFlags.isEnabled("web.history")).toBe(true);
   });
 });

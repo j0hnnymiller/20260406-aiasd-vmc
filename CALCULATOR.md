@@ -19,6 +19,7 @@ Modern web interface with button grid, history tracking, and responsive design
 - ✅ Multiplication (\*)
 - ✅ Division (/)
 - ✅ Percentage (%) - calculates X% of Y
+- ✅ Git-versioned feature flags with defaults stored in `feature-flags.json`
 - ✅ Formula input (e.g., "10 + 5")
 - ✅ Support for negative numbers
 - ✅ Support for decimal numbers
@@ -214,16 +215,28 @@ npm test
 
 **Test Coverage:**
 
-- `calculate()` function: All operations and edge cases (11 tests)
-- `parseFormula()` function: Valid/invalid formulas, special cases (10 tests)
+- `calculate()` function: All operations and edge cases (12 tests)
+- `parseFormula()` function: Valid/invalid formulas, special cases (11 tests)
 - `clearEntry()` function: Character removal, edge cases (10 tests)
-- Total: 31 test cases
+- `defaultFeatureFlags` coverage: Versioned default flag loading (1 test)
+- Total: 34 test cases
+
+## Feature Flags
+
+Default feature flags are stored in `feature-flags.json`, which stays versioned in git alongside the application code. The shared loader in `feature-flags.js` exposes the current flag set and its version so both the CLI and browser app consume the same defaults.
+
+Current default flags:
+
+- `operators.percentage`: Enables the percentage operator in parsing, calculation, and the web button grid
+- `web.history`: Enables the web calculation history panel
+
+If the browser cannot fetch `feature-flags.json` directly, it falls back to embedded defaults so the app still works when `index.html` is opened from disk.
 
 **Test Output Example:**
 
 ```
 Test Suites: 1 passed, 1 total
-Tests:       31 passed, 31 total
+Tests:       34 passed, 34 total
 ```
 
 ## API Reference

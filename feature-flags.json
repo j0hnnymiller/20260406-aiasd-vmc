@@ -1,0 +1,7 @@
+{
+  "version": "2026-04-08",
+  "flags": {
+    "operators.percentage": false,
+    "web.history": false
+  }
+}

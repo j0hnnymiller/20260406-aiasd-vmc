@@ -29,7 +29,11 @@
             <span class="operation-item">- Subtraction</span>
             <span class="operation-item">* Multiplication</span>
             <span class="operation-item">/ Division</span>
-            <span class="operation-item">% Percentage</span>
+            <span
+              class="operation-item"
+              data-feature-flag="operators.percentage"
+              >% Percentage</span
+            >
           </div>
         </div>
 
@@ -51,7 +55,13 @@
 
           <button class="btn num-btn" data-value="0">0</button>
           <button class="btn num-btn" data-value=".">.</button>
-          <button class="btn op-btn" data-value="%">%</button>
+          <button
+            class="btn op-btn"
+            data-value="%"
+            data-feature-flag="operators.percentage"
+          >
+            %
+          </button>
           <button class="btn op-btn" data-value="+">+</button>
 
           <button class="btn backspace-btn" id="backspace">⌫ Backspace</button>
@@ -59,13 +69,14 @@
           <button class="btn equals-btn" id="equals">=</button>
         </div>
 
-        <div class="history">
+        <div class="history" data-feature-flag="web.history">
           <h3>History</h3>
           <div id="history-list" class="history-list"></div>
         </div>
       </div>
     </div>
 
+    <script src="feature-flags.js"></script>
     <script src="web-app.js"></script>
   </body>
 </html>

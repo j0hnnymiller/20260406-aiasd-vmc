@@ -57,6 +57,9 @@ function clearEntry(input) {
   return input.slice(0, -1);
 }
 
+const { createFeatureFlagClient, loadDefaultFeatureFlagConfig } =
+  window.featureFlags;
+
 // DOM Elements
 const formulaInput = document.getElementById("formula-input");
 const resultDisplay = document.getElementById("result");
@@ -69,6 +72,27 @@ const opButtons = document.querySelectorAll(".op-btn");
 
 // History array
 let history = [];
+let featureFlagClient = createFeatureFlagClient({
+  version: "boot",
+  flags: {},
+});
+
+function getEnabledOperators() {
+  const operators = ["+", "-", "*", "/"];
+
+  if (featureFlagClient.isEnabled("operators.percentage")) {
+    operators.push("%");
+  }
+
+  return operators;
+}
+
+function applyFeatureFlags() {
+  document.querySelectorAll("[data-feature-flag]").forEach((element) => {
+    const flagName = element.dataset.featureFlag;
+    element.hidden = !featureFlagClient.isEnabled(flagName);
+  });
+}
 
 /**
  * Calculates and displays the result
@@ -80,7 +104,7 @@ function calculateResult() {
     return;
   }
 
-  const parsed = parseFormula(formula);
+  const parsed = parseFormula(formula, featureFlagClient);
 
   if (!parsed) {
     displayResult("Error: Invalid formula", true);
@@ -123,6 +147,10 @@ function displayResult(result, isError = false) {
  * @param {number} result - The result
  */
 function addToHistory(formula, result) {
+  if (!featureFlagClient.isEnabled("web.history")) {
+    return;
+  }
+
   history.unshift({ formula, result });
   if (history.length > 10) {
     history.pop();
@@ -134,6 +162,11 @@ function addToHistory(formula, result) {
  * Renders the history list
  */
 function renderHistory() {
+  if (!featureFlagClient.isEnabled("web.history")) {
+    historyList.innerHTML = "";
+    return;
+  }
+
   historyList.innerHTML = "";
   history.forEach((item) => {
     const historyItem = document.createElement("div");
@@ -175,52 +208,60 @@ function backspaceInput() {
  * @param {string} value - Value to append
  */
 function appendToInput(value) {
+  if (value === "%" && !getEnabledOperators().includes("%")) {
+    return;
+  }
+
   formulaInput.value += value;
   formulaInput.focus();
 }
 
-// Event Listeners
-formulaInput.addEventListener("keypress", (e) => {
-  if (e.key === "Enter") {
-    calculateResult();
-  }
-});
-
-formulaInput.addEventListener("keydown", (e) => {
-  if (e.key === "Backspace") {
-    // Let the default backspace behavior happen
-    // But also clear the result display
-    setTimeout(() => {
-      resultDisplay.textContent = "";
-      resultDisplay.classList.remove("error");
-    }, 0);
-  }
-});
-
-equalsBtn.addEventListener("click", calculateResult);
-clearBtn.addEventListener("click", clearCalculator);
-backspaceBtn.addEventListener("click", backspaceInput);
-
-// Number and operator buttons
-numButtons.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    appendToInput(btn.dataset.value);
-  });
-});
-
-opButtons.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const currentValue = formulaInput.value.trim();
-    // Add space around operator for readability
-    if (currentValue && !currentValue.endsWith(" ")) {
-      appendToInput(" ");
+function registerEventListeners() {
+  formulaInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      calculateResult();
     }
-    appendToInput(btn.dataset.value);
-    appendToInput(" ");
   });
-});
 
-// Focus input on load
-window.addEventListener("load", () => {
+  formulaInput.addEventListener("keydown", (e) => {
+    if (e.key === "Backspace") {
+      setTimeout(() => {
+        resultDisplay.textContent = "";
+        resultDisplay.classList.remove("error");
+      }, 0);
+    }
+  });
+
+  equalsBtn.addEventListener("click", calculateResult);
+  clearBtn.addEventListener("click", clearCalculator);
+  backspaceBtn.addEventListener("click", backspaceInput);
+
+  numButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      appendToInput(btn.dataset.value);
+    });
+  });
+
+  opButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (!getEnabledOperators().includes(btn.dataset.value)) {
+        return;
+      }
+
+      const currentValue = formulaInput.value.trim();
+      if (currentValue && !currentValue.endsWith(" ")) {
+        appendToInput(" ");
+      }
+      appendToInput(btn.dataset.value);
+      appendToInput(" ");
+    });
+  });
+}
+
+window.addEventListener("load", async () => {
+  const featureFlagConfig = await loadDefaultFeatureFlagConfig();
+  featureFlagClient = createFeatureFlagClient(featureFlagConfig);
+  applyFeatureFlags();
+  registerEventListeners();
   formulaInput.focus();
 });
